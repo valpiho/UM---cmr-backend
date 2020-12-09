@@ -4,16 +4,21 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/userscrm?LocalTimezone=UTC
+    url: jdbc:mysql://localhost:3306/userscrm?createDatabaseIfNotExist=true&LocalTimezone=UTC
     username: root
     password: root
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
+  mvc:
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      add-mappings: true
 
 jwt:
-  secret: "kztq03n8G2xLEthjjdUh21DR76P3x5CfJT4U8LQnJetk4ScIOrEqTcebtJ8ZlXyMYL"
+  secret: kztq03n8G2xLEthjjdUh21DR76P3x5CfJT4U8LQnJetk4ScIOrEqTcebtJ8ZlXyMYL
