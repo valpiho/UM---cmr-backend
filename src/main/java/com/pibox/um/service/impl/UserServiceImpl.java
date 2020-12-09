@@ -1,4 +1,4 @@
-package com.pibox.um.impl;
+package com.pibox.um.service.impl;
 
 import com.pibox.um.domain.User;
 import com.pibox.um.domain.UserPrincipal;
