@@ -5,11 +5,12 @@ import com.pibox.um.exception.domain.EmailExistException;
 import com.pibox.um.exception.domain.UserNotFoundException;
 import com.pibox.um.exception.domain.UsernameExistException;
 
+import javax.mail.MessagingException;
 import java.util.List;
 
 public interface UserService {
 
-    User register(String firstName, String lastName, String username, String email) throws UserNotFoundException, UsernameExistException, EmailExistException;
+    User register(String firstName, String lastName, String username, String email) throws UserNotFoundException, UsernameExistException, EmailExistException, MessagingException;
 
     List<User> getUsers();
 
