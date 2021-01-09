@@ -7,7 +7,6 @@ import java.util.Date;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class HttpResponse {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy hh:mm:ss", timezone = "EET")

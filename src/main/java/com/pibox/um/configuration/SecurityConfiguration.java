@@ -27,14 +27,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final JWTAuthorizationFilter jwtAuthorizationFilter;
     private final JWTAccessDeniedHandler jwtAccessDeniedHandler;
     private final JWTAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-    @Qualifier("userDetailsService")
     private final UserDetailsService userDetailsService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public SecurityConfiguration(JWTAuthorizationFilter jwtAuthorizationFilter,
                                  JWTAccessDeniedHandler jwtAccessDeniedHandler,
                                  JWTAuthenticationEntryPoint jwtAuthenticationEntryPoint,
-                                 @Qualifier("userDetailsService") UserDetailsService userDetailsService,
+                                 @Qualifier("userDetailsService")UserDetailsService userDetailsService,
                                  BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.jwtAuthorizationFilter = jwtAuthorizationFilter;
         this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;

@@ -22,9 +22,8 @@ public class JWTAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request,
                        HttpServletResponse response,
-                       AccessDeniedException exception) throws IOException, ServletException {
+                       AccessDeniedException exception) throws IOException{
         HttpResponse httpResponse = new HttpResponse(UNAUTHORIZED.value(), UNAUTHORIZED, UNAUTHORIZED.getReasonPhrase().toUpperCase(), ACCESS_DENIED_MESSAGE);
-        response.sendError(HttpServletResponse.SC_FORBIDDEN, "Access denied");
         response.setContentType(APPLICATION_JSON_VALUE);
         response.setStatus(UNAUTHORIZED.value());
         OutputStream outputStream = response.getOutputStream();

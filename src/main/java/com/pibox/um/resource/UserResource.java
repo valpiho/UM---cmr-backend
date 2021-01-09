@@ -34,7 +34,7 @@ import static com.pibox.um.constant.SecurityConstant.JWT_TOKEN_HEADER;
 import static org.springframework.http.MediaType.IMAGE_JPEG_VALUE;
 
 @RestController
-@RequestMapping({"/user", "/"})
+@RequestMapping("/user")
 public class UserResource extends ExceptionHandling {
 
     private final UserService userService;
@@ -117,7 +117,7 @@ public class UserResource extends ExceptionHandling {
     @PreAuthorize("hasAnyAuthority('user:delete')")
     public ResponseEntity<HttpResponse> deleteUser(@PathVariable("id") Long id) {
         userService.deleteUser(id);
-        return response(HttpStatus.NO_CONTENT, "User deleted successfully");
+        return response(HttpStatus.OK, "User deleted successfully");
     }
 
     @PostMapping("/updateProfileImage")
@@ -150,7 +150,7 @@ public class UserResource extends ExceptionHandling {
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {
         return new ResponseEntity<>(new HttpResponse(httpStatus.value(),
-                httpStatus, httpStatus.getReasonPhrase().toUpperCase(), message.toUpperCase()), httpStatus);
+                httpStatus, httpStatus.getReasonPhrase().toUpperCase(), message), httpStatus);
     }
 
     private void authenticate(String username, String password) {

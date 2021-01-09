@@ -23,7 +23,6 @@ public class JWTAuthenticationEntryPoint extends Http403ForbiddenEntryPoint {
                          HttpServletResponse response,
                          AuthenticationException exception) throws IOException {
         HttpResponse httpResponse = new HttpResponse(FORBIDDEN.value(), FORBIDDEN, FORBIDDEN.getReasonPhrase().toUpperCase(), FORBIDDEN_MESSAGE);
-        response.sendError(HttpServletResponse.SC_FORBIDDEN, "Access denied");
         response.setContentType(APPLICATION_JSON_VALUE);
         response.setStatus(FORBIDDEN.value());
         OutputStream outputStream = response.getOutputStream();

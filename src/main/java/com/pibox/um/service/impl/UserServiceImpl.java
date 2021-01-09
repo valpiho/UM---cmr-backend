@@ -13,6 +13,7 @@ import com.pibox.um.service.LoginAttemptService;
 import com.pibox.um.service.UserService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,6 +27,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.mail.MessagingException;
 import javax.transaction.Transactional;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -126,8 +128,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.setEmail(email);
         user.setJoinDate(new Date());
         user.setPassword(encodedPassword(password));
-        user.setActive(true);
-        user.setNotLocked(true);
+        user.setActive(isActive);
+        user.setNotLocked(isNonLocked);
         user.setRole(getRoleEnumName(role).name());
         user.setAuthorities(getRoleEnumName(role).getAuthorities());
         user.setProfileImageUrl(getTemporaryProfileImageUrl(username));
@@ -141,7 +143,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                            boolean isNonLocked, boolean isActive, MultipartFile profileImage)
             throws UserNotFoundException, UsernameExistException, EmailExistException, IOException {
         User currentUser = validateNewUsernameAndEmail(currentUsername, newUsername, newEmail);
-        assert currentUser != null;
         currentUser.setFirstName(newFirstName);
         currentUser.setLastName(newLastName);
         currentUser.setUsername(newUsername);
@@ -158,6 +159,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    public void deleteUser(String username) throws IOException {
+        User user = userRepository.findUserByUsername(username);
+        Path userFolder = Paths.get(USER_FOLDER + user.getUsername()).toAbsolutePath().normalize();
+        FileUtils.deleteDirectory(new File(userFolder.toString()));
+        userRepository.deleteById(user.getId());
     }
 
     @Override

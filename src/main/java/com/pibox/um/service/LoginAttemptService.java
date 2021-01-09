@@ -37,11 +37,10 @@ public class LoginAttemptService {
         int attempts = 0;
         try {
             attempts = ATTEMPT_INCREMENT + loginAttemptCache.get(username);
-            loginAttemptCache.put(username, attempts);
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
+        loginAttemptCache.put(username, attempts);
     }
 
     public boolean hasExceededMaxAttempts(String username){
